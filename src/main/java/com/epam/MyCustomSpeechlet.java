@@ -27,22 +27,22 @@ public class MyCustomSpeechlet implements SpeechletV2 {
     private GoogleCalendarService googleCalendarService = new GoogleCalendarService();
 
     public void onSessionStarted(SpeechletRequestEnvelope<SessionStartedRequest> speechletRequestEnvelope) {
-        LOGGER.info("onSessionStarted -> requestId = %s and sessionId = %s", speechletRequestEnvelope.getRequest().getRequestId(), speechletRequestEnvelope.getSession().getSessionId());
+        LOGGER.info("onSessionStarted -> requestId = {} and sessionId = {}", speechletRequestEnvelope.getRequest().getRequestId(), speechletRequestEnvelope.getSession().getSessionId());
     }
 
     public SpeechletResponse onLaunch(SpeechletRequestEnvelope<LaunchRequest> speechletRequestEnvelope) {
-        LOGGER.info("onLunch -> requestId = %s and sessionId = %s", speechletRequestEnvelope.getRequest().getRequestId(), speechletRequestEnvelope.getSession().getSessionId());
+        LOGGER.info("onLunch -> requestId = {} and sessionId = {}", speechletRequestEnvelope.getRequest().getRequestId(), speechletRequestEnvelope.getSession().getSessionId());
         String speechText = "Welcome to the Alexa Skills Kit";
         return getPlainTextResponse(speechText);
     }
 
     public SpeechletResponse onIntent(SpeechletRequestEnvelope<IntentRequest> speechletRequestEnvelope) {
-        LOGGER.info("onIntent-> requestId = %s and sessionId = %s", speechletRequestEnvelope.getRequest().getRequestId(), speechletRequestEnvelope.getSession().getSessionId());
+        LOGGER.info("onIntent-> requestId = {} and sessionId = {}", speechletRequestEnvelope.getRequest().getRequestId(), speechletRequestEnvelope.getSession().getSessionId());
         return handleIntents(speechletRequestEnvelope);
     }
 
     public void onSessionEnded(SpeechletRequestEnvelope<SessionEndedRequest> speechletRequestEnvelope) {
-        LOGGER.info("onSessionEnded -> requestId = %s and sessionId = %s", speechletRequestEnvelope.getRequest().getRequestId(), speechletRequestEnvelope.getSession().getSessionId());
+        LOGGER.info("onSessionEnded -> requestId = {} and sessionId = {}", speechletRequestEnvelope.getRequest().getRequestId(), speechletRequestEnvelope.getSession().getSessionId());
     }
 
     private SpeechletResponse getPlainTextResponse(String speechText) {
@@ -91,7 +91,7 @@ public class MyCustomSpeechlet implements SpeechletV2 {
         String greeting = Optional.ofNullable(intent.getSlot("name").getValue()).orElse("World");
 
         PlainTextOutputSpeech outputSpeech = new PlainTextOutputSpeech();
-        outputSpeech.setText(String.format("Hello %s", greeting));
+        outputSpeech.setText(String.format("Hello {}", greeting));
 
         return SpeechletResponse.newTellResponse(outputSpeech);
     }
