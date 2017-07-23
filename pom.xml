@@ -47,8 +47,43 @@
         </dependency>
     </dependencies>
 
+    <properties>
+        <lambda.functionCode>${project.build.directory}/${project.build.finalName}.jar</lambda.functionCode>
+        <lambda.version>${project.version}</lambda.version>
+        <lambda.publish>true</lambda.publish>
+        <lambda.forceUpdate>true</lambda.forceUpdate>
+    </properties>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.github.seanroy</groupId>
+                <artifactId>lambda-maven-plugin</artifactId>
+                <version>2.2.2</version>
+                <configuration>
+                    <functionCode>${lambda.functionCode}</functionCode>
+                    <version>${lambda.version}</version>
+                    <region>eu-west-1</region>
+                    <lambdaRoleArn>arn:aws:iam::597535893973:role/service-role/lambda_for_amazon_alexa_test
+                    </lambdaRoleArn>
+                    <s3Bucket>amazon-alexa-source-code</s3Bucket>
+                    <publish>${lambda.publish}</publish>
+                    <forceUpdate>${lambda.forceUpdate}</forceUpdate>
+                    <lambdaFunctionsJSON>[
+                        {
+                        "functionName": "LambdaForAmazonAlexa",
+                        "description": "Lambda function for Amazon Alexa",
+                        "handler": "com.epam.SimpleSpeechletRequestStreamHandler",
+                        "triggers": [
+                        {
+                        "integration": "Alexa Skills Kit"
+                        }
+                        ]
+                        }
+                        ]
+                    </lambdaFunctionsJSON>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
